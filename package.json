@@ -1,0 +1,22 @@
+{
+  "name": "diffy",
+  "description": "A page diffing tool",
+  "version": "0.0.1",
+  "main": "app.js",
+  "repository": "git@github.com:geckoboard/diffy.git",
+  "scripts": {
+    "diffy": "./bin/diffy.js"
+  },
+  "bin": "./bin/diffy.js",
+  "dependencies": {
+    "body-parser": "^1.13.1",
+    "connect": "^3.4.0",
+    "image-diff": "^1.2.0",
+    "phantomjs-polyfill": "0.0.1",
+    "request": "^2.58.0",
+    "s3": "^4.4.0"
+  },
+  "engines": {
+    "node": "0.12.x"
+  }
+}
