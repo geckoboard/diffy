@@ -34,7 +34,7 @@ module.exports = function (url, callback) {
         if (noChange) {
           callback(null);
         } else {
-          uploadFile(diffFilePath, fileName, function (err, s3Url) {
+          uploadFile(diffFilePath, fileName + '.png', function (err, s3Url) {
             if (err) {
               callback(err);
               return;
