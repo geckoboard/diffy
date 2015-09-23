@@ -23,7 +23,7 @@ var app = connect()
       }
 
       // Post the message to slack
-      postMessage(s3Url, function (err) {
+      postMessage(s3Url + '?' + Math.round(Math.random() * 1e4), function (err) {
         if (err) {
           res.statusCode = 500;
           res.end('Failed to post message to Slack ' + err.message);
