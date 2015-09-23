@@ -2,6 +2,7 @@ var connect = require('connect');
 var PORT = process.env.PORT || 5000;
 var diffy = require('./diffy');
 var http = require('http');
+var postMessage = require('./lib/post_message');
 
 var app = connect()
 .use(require('body-parser').urlencoded({ extended: true }))
@@ -11,10 +12,27 @@ var app = connect()
       if (err) {
         res.statusCode = 500;
         res.end('Something went horribly wrong: ' + err.message);
-      } else {
-        res.statusCode = s3Url ? 200 : 204;
-        res.end(s3Url);
+        return;
       }
+
+      // Nothing has changed
+      if (!s3Url) {
+        res.statusCode = 204;
+        res.end();
+        return;
+      }
+
+      // Post the message to slack
+      postMessage(s3Url, function (err) {
+        if (err) {
+          res.statusCode = 500;
+          res.end('Failed to post message to Slack ' + err.message);
+          return;
+        }
+
+        res.statusCode = 200;
+        res.end(s3Url);
+      });
     });
   } else {
     res.statusCode = 404;
